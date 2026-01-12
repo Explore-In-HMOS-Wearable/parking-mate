@@ -12,12 +12,12 @@ export struct HomePage {
   private pathStack: NavPathStack = new NavPathStack();
   private mapController?: map.MapComponentController;
 
-  @State mapOptions: mapCommon.MapOptions = {
+  private mapOptions: mapCommon.MapOptions = {
     position: { target: { latitude: 38.447967, longitude: 27.179380 }, zoom: 13 }
   };
-  @State results: Place[] = [];
+  private results: Place[] = [];
 
-  @State myLocationMarker: mapCommon.MarkerOptions = {
+  private myLocationMarker: mapCommon.MarkerOptions = {
     position: { latitude: 38.447967, longitude: 27.179380},
     icon: $r('app.media.Vector'),
     title: 'Mistral Izmir',
@@ -45,12 +45,8 @@ export struct HomePage {
   build() {
     Navigation(this.pathStack) {
       Column() {
-        SearchInput({ onSearch: (kw): Promise<void> => this.onSearch(kw) })
         Scroll() {
           Column() {
-            ForEach(this.results, (p: Place) => {
-              PoiCard({ place: p })
-            })
           }
         }
         MapComponent({

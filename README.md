@@ -8,10 +8,10 @@ This app is designed to simplify your urban experience—no more wandering in la
 
 # Preview
 
-<p align="left">
-  <img src="./screenshots/parkingmate_1.png" width="25%">
-  <img src="./screenshots/parkingmate_2.png" width="25%">
-  <img src="./screenshots/parkingmate_3.png" width="25%">
+<p align="center">
+  <img src="./screenshots/parkingmate_1.png" width="24%">
+  <img src="./screenshots/parkingmate_2.png" width="24%">
+  <img src="./screenshots/parkingmate_3.png" width="24%">
 </p>
 
 # Use Cases

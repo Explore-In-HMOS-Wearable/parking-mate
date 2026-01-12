@@ -1,13 +1,14 @@
-// Main screen using ArkTS for HarmonyOS smartwatch
 import geoLocationManager from '@ohos.geoLocationManager';
-import promptAction from '@ohos.promptAction';
 import preferences from '@ohos.data.preferences';
+import { common } from '@kit.AbilityKit';
+import { PromptAction } from '@kit.ArkUI';
 
 @Entry
 @Component
 struct HomePage {
   @State isParked: boolean = false;
-
+  private uiContext: UIContext = this.getUIContext();
+  private promptAction: PromptAction = this.uiContext.getPromptAction();
   async toggleLocation() {
 
     if (!this.isParked) {
@@ -16,7 +17,8 @@ struct HomePage {
           priority: geoLocationManager.LocationRequestPriority.LOW_POWER
         });
 
-        const context = this.context;
+        const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+
         const pref = await preferences.getPreferences(context, 'parkingPref');
         await pref.put('parkingLocation', JSON.stringify({
           lat: location.latitude,
@@ -24,15 +26,22 @@ struct HomePage {
           alt: location.altitude || 0
         }));
         await pref.flush();
-
-        promptAction.showToast({ message: 'Parking location saved.' });
+        this.promptAction.showToast({
+          message: 'Parking location saved.',
+          duration: 30
+        });
         this.isParked = true;
       } catch (err) {
-        promptAction.showToast({ message: 'Failed to get location.' });
+        this.promptAction.showToast({
+          message: 'Failed to get location.',
+          duration: 30
+        });
       }
     } else {
-      // Navigation logic will be added later
-      promptAction.showToast({ message: 'Navigating to saved location...' });
+      this.promptAction.showToast({
+        message: 'Navigating to saved location...',
+        duration: 30
+      });
       this.isParked = false;
     }
   }
